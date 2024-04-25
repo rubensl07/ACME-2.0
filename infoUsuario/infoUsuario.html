@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="./infoUsuario.js" type="module" defer></script>
+    <title>ACME Filmes</title>
+</head>
+
+<body class="bg-gray-700 h-screen grid grid-col">
+    <div class="bg-gray-900 h-screen flex flex-col justify-between">
+        <div class="h-full">
+            <div class="flex h-20 justify-between items-center w-full bg-gray-600 px-5">
+                <a href="../search/index.html" class="flex h-full w-fit items-center cursor-pointer gap-3">
+                    <img src="../img/icons/backIcon.png" class='h-1/2'>
+                    <p class="text-white text-3xl">Voltar</p>
+                </a>
+                <img src="../img/icons/logout.png" class="h-2/3 cursor-pointer" id="botaoLogout">
+            </div>
+
+            <div class="flex flex-col justify-evenly gap-10 mt-10">
+                <a href="./infoUsuario.html" class="flex h-24 w-full items-center gap-5 pl-2 cursor-pointer bg-indigo-300">
+                    <img src="../img/icons/user.png" class='h-4/5'>
+                    <p class="text-white text-4xl">Informações</p>
+                </a>
+                <a href="./favoritos.html" class="flex h-24 w-full items-center gap-5 pl-2 cursor-pointer">
+                    <img src="../img/icons/star.png" class='h-4/5'>
+                    <p class="text-white text-4xl">Favoritos</p>
+                </a>
+            </div>
+        </div>
+        <a href="../manager/manager.html" id="editarFilmesButton" class="invisible bg-cyan-600 flex items-center justify-around cursor-pointer  hover:text-white h-32 px-4">
+            <img class="h-3/4" src="../img/icons/editMovies.png" alt="">
+            <p class="text-3xl">Editar filmes</p>
+        </a>
+    </div>
+    <div class="flex flex-col items-center justify-between px-20 pt-5 pb-20">
+        <img class="rounded-full aspect-square h-80 border-solid border-8 border-stone-50" id="fotoUsuario">
+        <div class="campoInfo grid gap-10 w-full">
+            <input class="rounded-3xl h-20 bg-slate-300 p-7 text-3xl" type="text" placeholder="Nome" id="nome">
+            <input class="rounded-3xl h-20 bg-slate-300 p-7 text-3xl text-center flex justify-center " type="date" id="nascimento">
+            <select class="rounded-3xl h-20 bg-slate-300 p-0 text-3xl text-center " placeholder="Genero" name="generos" id="generosSelect">
+                <option value="1">Masculino</option>
+                <option value="2">Feminino</option>
+                <option value="3" selected>Não-declarado</option>
+            </select>
+            <input class="rounded-3xl h-20 bg-slate-300 p-7 text-3xl" type="email" placeholder="E-mail" id="email">
+            <input class="rounded-3xl h-20 bg-slate-300 p-7 text-3xl" type="password" placeholder="Senha" id="senha">
+        </div>
+        <button id="botaoEditarPerfil" class="bg-gray-100 px-10 py-5 rounded-2xl text-4xl bg-slate-400 hover:text-white">Atualizar Perfil</button>
+    </div>
+    <div class="absolute bottom-5 right-5 flex flex-row-reverse h-20 items-center gap-10">
+        <img id="botaoExcluirPerfil" src="../img/icons/red-trash-can-icon.png" class="cursor-pointer h-full">
+        <div class="flex flex-col items-center h-full">
+            <p class="text-3xl text-white">ADM</p>
+            <input id="adm" type="checkbox" class="h-full aspect-square">
+
+        </div>
+    </div>
+</body>
+
+</html>
+<style>
+    .grid-col {
+        grid-template-columns: 1fr 5fr;
+    }
+    #nome{
+        grid-area:nome;
+    }
+    #nascimento{
+        grid-area:nascimento;
+    }    
+    #generosSelect{
+        grid-area:genero;
+    }
+    #email{
+        grid-area:email;
+    }
+    #senha{
+        grid-area:senha;
+    }
+
+    .campoInfo{
+        grid-template-areas: 
+        "nome       nome     nome     nome  nome  nome  nome nome"
+        "nascimento email    email    email email email email email"
+        "genero   senha    senha    senha senha senha senha senha"
+    }
+</style>

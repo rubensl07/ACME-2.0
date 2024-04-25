@@ -1,0 +1,18 @@
+.reduzirMarginBottom{
+    margin-bottom: -20px;
+}
+.reduzirMarginTop{
+    margin-top: -20px;
+}
+body{
+background-image: url(../img/cinema.webp);
+}
+.opacidadeFundo{
+background-color: rgba(128, 128, 128, 0.5);    
+}
+input{
+border-bottom: solid;
+}
+*{
+font-family: "Grandstander", cursive;
+}

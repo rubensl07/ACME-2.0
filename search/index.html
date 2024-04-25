@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Sans:wght@300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Galindo&family=Inria+Sans:wght@300&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="./search.js" type="module" defer></script>
+    <title>ACME</title>
+</head>
+
+<div id="filtrarPage" class="h-screen w-screen fixed z-10 px-20 py-10 hidden">
+    <div class="flex flex-col items-center h-full">
+        <div class="grid w-full h-full" style="grid-template-columns: repeat(3,1fr);">
+            <div class="grid gap-3 h-full" style="grid-template-columns: repeat(2,1fr);" id="containerGenerosCheckboxes">
+                <div class="order-last flex gap-5">
+                    <button class="h-16 bg-sky-600 w-20 rounded-3xl text-xl hover:text-white hover:bg-sky-700 duration-300" id="checkButton">Alternar</button>
+                    <button class="h-16 bg-sky-600 w-20 rounded-3xl text-xl hover:text-white hover:bg-sky-700 duration-300" id="zerarButton">Zerar</button>
+                </div>
+            </div>
+            <div class="flex flex-col items-center justify-center gap-10">
+                <div class="flex flex-col items-center gap-2">
+                    <p class="text-6xl text-white">De:</p>
+                    <input id="dataMinima" type="date" class="h-20 w-80 rounded-xl bg-gray-300 text-3xl text-center">
+                </div>
+                <div class="flex flex-col items-center gap-2">
+                    <p class="text-6xl text-white">Até:</p>
+                    <input id="dataMaxima" type="date" class="h-20 w-80 rounded-xl bg-gray-300 text-3xl text-center">
+                </div>
+            </div>
+            <div class="flex items-center gap-8">
+                <p class="text-white text-4xl text-center">Classificação<br>Indicativa<br>máxima</p>
+                <select name="faixa_etaria" id="faixaEtariaSelect" class="h-14 w-14 text-3xl bg-gray-300 rounded-xl">
+                    <option value="1" selected>L</option>
+                    <option value="2" selected>10</option>
+                    <option value="3" selected>12</option>
+                    <option value="4" selected>14</option>
+                    <option value="5" selected>16</option>
+                    <option value="6" selected>18</option>
+                  </select>
+            </div>
+        </div>
+        <div class="flex flex-col-reverse items-center gap-6">
+            <div class="flex justify-center gap-4 items-center">
+                <button id="cancelFiltrosButton" class="uppercase text-white bg-sky-900 text-2xl w-fit px-4 py-2 rounded-xl hover:text-sky-100 hover:bg-sky-400 duration-300">Cancelar</button>
+                <img id="cleanFilterButton" src="../img/icons/undo-circular-arrow.png" class="cursor-pointer h-14 p-2 hover:p-0 duration-300" alt="clean">
+            </div>
+            <button id="aplicarFiltrosButton" class="uppercase text-white bg-sky-600 text-6xl px-10 py-5 rounded-3xl hover:text-sky-500 hover:bg-sky-400 duration-300">Aplicar filtros</button>
+        </div>
+    </div>
+</div>
+
+<body class='w-screen h-screen bg-gray-700 overflow-x-hidden'>
+        <header class="w-screen flex items-center justify-between h-28 px-10 fixed top-0">
+            <img src="../img/logo.png" class="h-full cursor-pointer" id="logo">
+            <div class="flex h-2/5 bg-white rounded-lg items-center px-2 w-2/3 m-20">
+                <input type="text" placeholder="Pesquisar" id="searchBar"
+                    class="rounded-lg w-full h-full text-2xl outline-none ">
+                    <img id="filtrarIcon" src="../img/icons/filter.png" alt="filtrarIcon" class="left-5 h-full p-1.5 cursor-pointer">
+            </div>
+            <a href="../login/index.html" id="loginButton" class="h-1/2 flex items-center gap-5 cursor-pointer">
+                <p class="text-white text-xl">Fazer Login</p>
+                <img src="../img/icons/enter.png" class="h-full">
+            </a>
+            <a href="../infoUsuario/infoUsuario.html" id="infoUserButton" class="h-1/2 flex items-center w-20 justify-between hidden">
+                <img id="fotoUsuario" class="h-full aspect-square rounded-full cursor-pointer">
+            </a>
+        </header>
+        <main id="container"></main>
+</body>
+
+</html>
+
+<STYLE>
+
+:root{
+    
+}
+    .gradiente{
+    background: linear-gradient(140deg, rgb(82, 82, 82) 0%, rgb(66, 66, 66) 0%,  5%, #ffffff 100%);
+    }
+    header {
+        background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(255, 255, 255, 0) 100%);
+    }
+    .poster {
+        aspect-ratio: 2/3;
+    }
+    #filtrarPage{
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+</STYLE>

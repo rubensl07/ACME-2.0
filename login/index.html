@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Grandstander:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../cadastro.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="./login.js" type="module"></script>
+
+<title>Login</title>
+</head>
+<div class="absolute h-screen w-screen bg-sky-800 opacity-50"></div>
+<body class="bg-cover h-full w-full absolute z-10 flex flex-col justify-center items-center gap-14">
+    <div class="h-2/3 w-3/5 rounded-3xl z-10 opacidadeFundo border-solid border-8 border-black grid py-20 px-48 mt-20 gap-10">
+        <div>
+            <p class="text-white text-7xl reduzirMarginBottom">E-mail</p>
+            <input id="email" type="email"    class="h-32 w-full text-5xl border-y-white-500 bg-transparent outline-none text-gray-300">
+        </div>
+        <div>
+            <p class="text-white text-7xl reduzirMarginBottom">Senha</p>
+            <input id="senha" type="password" class="h-32 w-full text-5xl border-y-white-500 bg-transparent outline-none text-gray-300">
+        </div>
+        <div class="reduzirMarginTop gap-2 flex w-full flex-col justify-end items-center text-white">
+            <p class="text-2xl">Não possui uma conta?</p>
+            <a href="../index.html" class="text-4xl cursor-pointer hover:underline hover:text-5xl">Criar</a>
+        </div>
+    </div>
+    <button id="button" class="uppercase bg-cyan-600 text-5xl px-16 py-8 rounded-full z-10 text-white hover:text-sky-300">luzes, câmera, login!</button>
+</body>
+</html>

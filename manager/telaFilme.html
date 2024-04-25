@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="./telaFilme.js" type="module" defer></script>
+    <title>Filme</title>
+</head>
+
+<body class="bg-gray-700 h-screen py-6 px-16 flex  justify-between">
+    <div class="flex flex-col h-full justify-around w-1/2">
+        <div class="flex flex-col gap-4">
+            <input type="text" id="titulo" placeholder="Título" class="h-30 rounded-lg text-6xl p-5 bg-slate-500 outline-slate-50 text-white">
+            <textarea id="sinopse" placeholder="Sinopse" class="rounded-lg p-4 text-2xl bg-slate-500 resize-none outline-slate-50 text-white scroll h-60"></textarea>
+
+        </div>
+        <div class="flex flex-col w-3/5 w-full gap-4">
+            <div class="flex items-center w-full justify-between"> 
+                <label for="dataLancamento" class="text-white text-6xl">Lançamento:</label> 
+                <input name="dataLancamento" id="dataLancamento" type="date" class="rounded-lg bg-slate-500 w-80 h-20 text-3xl flex justify-center outline-slate-50 text-white"> 
+            </div>
+            <div class="flex items-center w-full justify-between"> 
+                <label for="dataRelancamento" class="text-white text-6xl">Relançamento:</label> 
+                <input name="dataRelancamento" id="dataRelancamento" type="date"                class="rounded-lg bg-slate-500 w-80 h-20 text-3xl flex justify-center outline-slate-50 text-white"> 
+            </div>
+        </div>  
+        <div>
+            <div class="flex items-center w-full justify-around"> 
+                <div class="flex items-center gap-4"> 
+                    <label for="duracao" class="text-white text-5xl">Duração</label> 
+                    <input name="duracao" placeholder="hh:mm" maxlength="5" id="duracao" type="text" class="rounded-lg bg-slate-500 w-48 h-20 text-white outline-slate-50 text-center text-4xl"> 
+                </div>
+                <select name="Classificação" id="classificacao" class="h-14 w-14 text-3xl bg-slate-500 rounded-xl text-white  outline-slate-50">
+                    <option value="1">L</option>
+                    <option value="2">10</option>
+                    <option value="3">12</option>
+                    <option value="4">14</option>
+                    <option value="5">16</option>
+                    <option value="6">18</option>
+
+                </select> 
+            </div>
+        </div>
+    </div>
+    <div class="w-1/3 flex flex-col items-center gap-20">
+        <div class="flex justify-between w-full">
+            <img id="foto_capa" class="border-solid border-8 border-stone-50 max-h-full h-80 cursor-pointer" style="aspect-ratio: 2/3;">
+            <div class="flex flex-col justify-between">
+                <img id="foto_fundo" class="aspect-video h-40 border-solid border-4 border-stone-50 cursor-pointer">
+                <input type="color" id="cor" class="h-32 w-full">
+            </div>
+        </div>
+        <div class="w-full items-center flex flex-col gap-4">
+            <div class="scroll overflow-y-auto mr-12 h-fit max-h-60 bg-gray-400 rounded-xl w-2/3">
+                <div class="flex flex-col gap-5 h-full p-4" id="filmes">
+                    <div class="bg-gray-300 text-4xl text-center p-2 rounded-xl relative">
+                        <p>Ação</p>
+                        <img class="absolute closeButton h-8 w-8 cursor-pointer" src="../img/icons/xicon.png">
+                    </div>
+                    <div class="bg-gray-300 text-4xl text-center p-2 rounded-xl relative">
+                        <p>Ação</p>
+                        <img class="absolute closeButton h-8 w-8 cursor-pointer" src="../img/icons/xicon.png">
+                    </div>
+                    <div class="bg-gray-300 text-4xl text-center p-2 rounded-xl relative">
+                        <p>Ação</p>
+                        <img class="absolute closeButton h-8 w-8 cursor-pointer" src="../img/icons/xicon.png">
+                    </div>
+                    <div class="bg-gray-300 text-4xl text-center p-2 rounded-xl relative">
+                        <p>Ação</p>
+                        <img class="absolute closeButton h-8 w-8 cursor-pointer" src="../img/icons/xicon.png">
+                    </div>
+                    <div class="bg-gray-300 text-4xl text-center p-2 rounded-xl relative">
+                        <p>Ação</p>
+                        <img class="absolute closeButton h-8 w-8 cursor-pointer" src="../img/icons/xicon.png">
+                    </div>
+
+                </div>
+            </div>
+            <button class="uppercase flex items-center bg-sky-700 py-2 px-4 rounded-2xl text-2xl">Adicionar gênero
+                <img src="../img/icons/addBlack.png" alt="">
+            </button>
+        </div>
+
+    </div>
+    <div class="flex w-full justify-end gap-4 fixed bottom-2 right-20">
+        <a href="./manager.html" class="rounded-full bg-indigo-200 p-4 px-10 text-2xl text-black hover:text-white">Cancelar</a>
+        <button id="botaoConfirmar" class="rounded-full bg-indigo-400 p-2 px-16 text-2xl text-black hover:text-white"></button>
+    </div>
+
+    <div class="hidden justify-center items-center h-full w-full absolute top-0 left-0 bg-black/75" id="campoDigitacaoImagem">
+        <input id="campoDigitacaoImagemInput" type="text" placeholder="Link da imagem" class="w-full h-20 m-20 p-4 text-3xl rounded-lg outline-none">
+    </div>
+</body>
+
+</html>
+
+<style>
+    .closeButton{
+        top:-10px;
+        left:-10px;
+    }
+    .scroll::-webkit-scrollbar{
+    background-color: #545454;
+    width: 24px;
+    border-radius: 16px;
+}
+.scroll::-webkit-scrollbar-thumb {
+  background-color: #fff;  
+  border-radius: 32px;
+  border: 4px solid #545454; 
+}
+</style>
