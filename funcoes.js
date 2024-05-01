@@ -85,7 +85,6 @@ export async function editFilme(id,filmeAtualizado) {
         },
         body: JSON.stringify(filmeAtualizado)
     });
-    console.log('Filme substituído com sucesso!');
 } catch (error) {
     console.error('Ocorreu um erro ao substituir o filme: ', error);
 }
@@ -98,8 +97,76 @@ export async function getGeneros(){
 
   return data.generos
 }
+export async function getGenerosFilme(id){
+  const url = `${link}/acmefilmes/generosfilme/${id}`
+  const response = await fetch(url)
+  const data = await response.json()
+
+  return data.genero
+}
+export async function postGeneroFilme(dados) {
+  const url = `${link}/acmefilmes/generofilme`;
+
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(dados),
+  };
+
+  try {
+    const response = await fetch(url, options);
+    return response.ok;
+  } catch (error) {
+    console.error('Erro ao adicionar gênero: ', error);
+  }
+}
+export async function deleteGeneroFilme(id) {
+  try{
+    await fetch(`${link}/acmefilmes/generofilme/${id}`, {
+      method: 'DELETE',
+    });
+    console.log('Gênero removido com sucesso')
+  } catch (error) {
+    console.error('Erro ao excluir filme: ', error);
+  }
+}
 
 
+
+
+
+
+
+
+
+
+//Diretores
+export async function getDiretoresFilme(id){
+  const url = `${link}/acmefilmes/diretorfilme/${id}`
+  const response = await fetch(url)
+  const data = await response.json()
+
+  return data.diretores
+}
+
+
+
+
+
+
+
+
+
+
+//Atores
+export async function getAtoresFilme(id){
+  const url = `${link}/acmefilmes/atorfilme/${id}`
+  const response = await fetch(url)
+  const data = await response.json()
+  return data.atores
+}
 
 
 
@@ -162,6 +229,10 @@ export async function editUsuario(id,usuarioAtualizado) {
     console.error('Ocorreu um erro ao substituir o usuário: ', error);
 }
 }
+
+
+
+//Favoritos
 
 export async function getFavoritosUsuario(usuarioId){
   const url = `${link}/acmefilmes/favoritos/${usuarioId}`
@@ -244,13 +315,14 @@ export function validarData(data){
   return dataFinal
 }
 export async function verificarUsuarioExistente(idUsuario){
-  let boolean = false
-  if(await getUsuarios()){
-      (await getUsuarios()).forEach(usuario => {
-          if(usuario.id == idUsuario){
-              boolean = true
-          }
-      });
-  }
-  return boolean
+  const listaUsuarios = await getUsuarios()
+  let existe= false
+  listaUsuarios.forEach(usuario => {
+    if (usuario.id = idUsuario) {
+      existe = true
+    }
+  });
+  return existe
 }
+
+export const enderecoHome = '../home/index.html'

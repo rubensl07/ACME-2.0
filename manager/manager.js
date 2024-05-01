@@ -136,5 +136,5 @@ function excluirListaFilmes(){
 }
 
 
-document.getElementById('logo').addEventListener('click',()=>{window.location.href='../search/index.html'}
+document.getElementById('logo').addEventListener('click',()=>{window.location.href='../home/index.html'}
 )

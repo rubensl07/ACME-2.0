@@ -1,6 +1,6 @@
 'use strict'
-import { pesquisarFilme, filtrarFilmes, getGeneros, getFilmes, getUsuario, getUsuarios, verificarUsuarioExistente} from "../funcoes.js";
-const idUsuario = localStorage.getItem('idusuario')
+import { pesquisarFilme, filtrarFilmes, getGeneros, getFilmes, getUsuario, getUsuarios} from "../funcoes.js";
+
 
 const searchBar = document.getElementById('searchBar')
 const container = document.getElementById('container')
@@ -25,17 +25,7 @@ if(listaGeneros){
     });
 }
 
-let usuarioExistente= await verificarUsuarioExistente(idUsuario);
-if(idUsuario){
-    if(usuarioExistente){
-        loginButton.classList.add('hidden')
-        document.getElementById('infoUserButton').classList.remove('hidden')
-        const infoUsuario = await getUsuario(idUsuario)
-        document.getElementById('fotoUsuario').src = infoUsuario.foto_usuario
-    } else {
-        localStorage.removeItem('idusuario')
-    }
-} 
+
 
 function criarNotFound(){
     container.classList.remove('grid','grid-cols-3','pt-40','pb-20','px-36','gap-16')
@@ -86,7 +76,7 @@ function criarCard(info){
     card.replaceChildren(leftSide,rightSide)
     container.appendChild(card)
     card.addEventListener('click',()=>{
-        window.location.href='../home/index.html?id='+info.id
+        window.location.href='../moviepage/index.html?idFilme='+info.id
     })
 }
 if(await getFilmes()){
@@ -97,7 +87,7 @@ if(await getFilmes()){
 
 
 document.getElementById('logo').addEventListener('click', () => {
-    window.location.href = '../home/index.html'
+    window.location.href = './index.html'
 })
 searchBar.addEventListener('keyup',async (event)=>{
     excluirCardsFilmes()

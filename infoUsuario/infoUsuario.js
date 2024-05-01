@@ -24,7 +24,6 @@ if(infoUsuario.admin==1){
 }
 
 function preencherCampos(){
-    // console.log(infoUsuario)
     imagem.src=infoUsuario.foto_usuario
     nomeCampo.value = infoUsuario.nome
     nascimentoCampo.value = infoUsuario.nascimento.substr(0,10)

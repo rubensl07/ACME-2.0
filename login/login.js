@@ -1,4 +1,4 @@
-import {getUsuarios} from "../funcoes.js"
+import {enderecoHome, getUsuarios} from "../funcoes.js"
 
 const email = document.getElementById('email')
 const senha = document.getElementById('senha')
@@ -29,7 +29,7 @@ async function validarLogin(){
         usuarios.forEach((user) => {
             if(email.value === user.login && senha.value === user.senha){
                 localStorage.setItem("idusuario", user.id)
-                window.location.href = '../search/index.html'
+                window.location.href = enderecoHome
                 logado=true
             } 
         });

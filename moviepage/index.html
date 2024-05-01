@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="./moviepage.js" type="module" defer></script>
+    <title>Home</title>
+</head>
+<div id="imagemBackground" class="opacity-50 h-screen w-screen bg-cover bg-center fixed"></div>
+<body class="h-screen">
+
+    <img src="../img/icons/backIcon.png" class="h-10 fixed top-14 left-0 cursor-pointer" id="returnIcon">
+    <main class="px-6 py-9 flex flex-col gap-10">
+        <div class='w-full flex items-center justify-between'>
+                <h1 id="titulo" class="ml-10 mr-14 borda bordaTitulo text-7xl text-white w-full whitespace-nowrap overflow-hidden h-20">Clube da Luta</h1>
+                <div>
+                    <p id="dataLancamento" class="borda text-4xl text-white"></p>            
+                    <p id="dataRelancamento" class="borda text-4xl text-white"></p>
+                </div>
+        </div>
+        <div class="flex justify-between items-center">
+            <p id="generos" class="text-3xl text-white"></p>
+            <p class="duracao borda text-5xl text-white" id="duracao"></p>
+        </div>
+        <p id="sinopse" class="borda text-2xl text-white"></p>
+        <div class="p-4 w-screen flex justify-between h-40 fixed left-0 bottom-0">
+            <div class="flex gap-5">
+                <img class="h-full" id="classificacaoIndicativaIcone">
+                <p class="backgroundTransp duration-300 opacity-0 text-center p-2 flex items-center text-white bg-black rounded-2xl" id="classificacaoIndicativaSinopse"></p>
+            </div>
+            <img src="../img/icons/drama.png" id="castIcon" class="cursor-pointer h-full">
+        </div>
+    </main>
+</body>
+</html>
+<div id="castFieldF" class="duration-300 w-0 z-30 w-full h-full absolute top-0 right-0">
+    <div id="castField" class="overflow-x-hidden z-40 backgroundTransp overflow-y-auto absolute right-0 h-full w-1/3 flex flex-col items-center"></div>
+</div>
+
+<style>
+    body{
+        background: linear-gradient(to top, var(--corPredominante), #000000);
+    }
+    #imagemBackground{
+        z-index: -10;
+    }
+    .backgroundTransp{
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+    #castField{
+        border-radius: 2rem 0 0 2rem;
+    }
+    
+</style>

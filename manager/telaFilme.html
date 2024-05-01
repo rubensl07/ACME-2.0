@@ -39,7 +39,6 @@
                     <option value="4">14</option>
                     <option value="5">16</option>
                     <option value="6">18</option>
-
                 </select> 
             </div>
         </div>
@@ -54,32 +53,10 @@
         </div>
         <div class="w-full items-center flex flex-col gap-4">
             <div class="scroll overflow-y-auto mr-12 h-fit max-h-60 bg-gray-400 rounded-xl w-2/3">
-                <div class="flex flex-col gap-5 h-full p-4" id="filmes">
-                    <div class="bg-gray-300 text-4xl text-center p-2 rounded-xl relative">
-                        <p>Ação</p>
-                        <img class="absolute closeButton h-8 w-8 cursor-pointer" src="../img/icons/xicon.png">
-                    </div>
-                    <div class="bg-gray-300 text-4xl text-center p-2 rounded-xl relative">
-                        <p>Ação</p>
-                        <img class="absolute closeButton h-8 w-8 cursor-pointer" src="../img/icons/xicon.png">
-                    </div>
-                    <div class="bg-gray-300 text-4xl text-center p-2 rounded-xl relative">
-                        <p>Ação</p>
-                        <img class="absolute closeButton h-8 w-8 cursor-pointer" src="../img/icons/xicon.png">
-                    </div>
-                    <div class="bg-gray-300 text-4xl text-center p-2 rounded-xl relative">
-                        <p>Ação</p>
-                        <img class="absolute closeButton h-8 w-8 cursor-pointer" src="../img/icons/xicon.png">
-                    </div>
-                    <div class="bg-gray-300 text-4xl text-center p-2 rounded-xl relative">
-                        <p>Ação</p>
-                        <img class="absolute closeButton h-8 w-8 cursor-pointer" src="../img/icons/xicon.png">
-                    </div>
-
-                </div>
+                <div class="flex flex-col gap-5 h-full p-4 mb-20" id="generosContainer"></div>
             </div>
             <button class="uppercase flex items-center bg-sky-700 py-2 px-4 rounded-2xl text-2xl">Adicionar gênero
-                <img src="../img/icons/addBlack.png" alt="">
+                <img src="../img/icons/addBlack.png" id="openPannelAddGeneroButton">
             </button>
         </div>
 
@@ -91,6 +68,16 @@
 
     <div class="hidden justify-center items-center h-full w-full absolute top-0 left-0 bg-black/75" id="campoDigitacaoImagem">
         <input id="campoDigitacaoImagemInput" type="text" placeholder="Link da imagem" class="w-full h-20 m-20 p-4 text-3xl rounded-lg outline-none">
+    </div>
+    
+    <div class="hidden flex-col gap-10 justify-center items-center h-full w-full absolute top-0 left-0 bg-black/75" id="campoAddGenero">
+        <select name="Gêneros" id="addGeneroSelect" class="text-4xl text-center rounded-3xl">
+            <option value="0">Nenhum</option>
+        </select>
+        <div>
+            <button class="text-white bg-red-500 text-2xl px-5 py-4 rounded-2xl hover:bg-red-700 duration-500" id="closePannelAddGeneroButton">Cancelar</button>
+            <button class="text-white bg-sky-500 text-2xl px-5 py-4 rounded-2xl hover:bg-sky-700 duration-500" id="addGeneroButton">Adicionar</button>
+        </div>
     </div>
 </body>
 
