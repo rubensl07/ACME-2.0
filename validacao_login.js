@@ -8,7 +8,7 @@ if(idUsuario){
         loginButton.classList.add('hidden')
         document.getElementById('infoUserButton').classList.remove('hidden')
         const infoUsuario = await getUsuario(idUsuario)
-        document.getElementById('fotoUsuario').src = infoUsuario.foto_usuario
+        document.getElementById('fotoUsuario').src = '../img/icons/3-bar.png'
     } else {
         localStorage.removeItem('idusuario')
     }

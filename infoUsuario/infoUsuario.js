@@ -1,7 +1,6 @@
 'use strict'
-import {getUsuario, editUsuario, deleteUsuario,verificarUsuarioExistente} from "../funcoes.js"
+import {getUsuario, editUsuario, deleteUsuario,verificarUsuarioExistente, idUsuario} from "../funcoes.js"
 
-const idUsuario = localStorage.getItem('idusuario');
 if(!idUsuario){window.location.href='../login/index.html'}
 
 let usuarioExistente= await verificarUsuarioExistente(idUsuario);
@@ -11,7 +10,6 @@ if(!usuarioExistente){
 }
 const infoUsuario = (await getUsuario(idUsuario))
 
-const imagem = document.getElementById('fotoUsuario')
 const nomeCampo = document.getElementById('nome')
 const nascimentoCampo = document.getElementById('nascimento')
 const generosCampo = document.getElementById('generosSelect')
@@ -24,7 +22,6 @@ if(infoUsuario.admin==1){
 }
 
 function preencherCampos(){
-    imagem.src=infoUsuario.foto_usuario
     nomeCampo.value = infoUsuario.nome
     nascimentoCampo.value = infoUsuario.nascimento.substr(0,10)
     generosCampo.value = infoUsuario.id_sexo
@@ -37,7 +34,6 @@ document.getElementById('botaoEditarPerfil').addEventListener('click',()=>{
     document.getElementById('botaoEditarPerfil').textContent='Atualizar Perfil'
     const nome = nomeCampo.value
     const nascimento = nascimentoCampo.value
-    const fotoUsuario = imagem.src
     const login = mailCampo.value
     const senha = senhaCampo.value
     const id_sexo = document.getElementById('generosSelect').options[document.getElementById('generosSelect').selectedIndex].value;
@@ -56,7 +52,6 @@ document.getElementById('botaoEditarPerfil').addEventListener('click',()=>{
         const novasInfos = {
             nome,
             nascimento,
-            foto_usuario: fotoUsuario,
             login,
             senha,
             id_sexo,

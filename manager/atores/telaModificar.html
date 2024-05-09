@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="./telaModificar.js" type="module" defer></script>
+    <title>Ator</title>
+</head>
+
+<body class="bg-gray-700 p-10">
+    <div class="flex items-center w-full px-10 gap-10 h-40 mb-20">
+        <input type="text" id="nome" placeholder="Nome" class="h-full w-full  rounded-lg text-6xl p-5 bg-slate-500 outline-slate-50 text-white">
+        <select name="sexo" id="sexoSelect" class="h-full w-40 text-8xl bg-slate-500 rounded-xl text-white outline-slate-50"></select>
+    </div>
+    <div class="flex justify-between">
+        <div class="flex flex-col items-center justify-between">
+            <div>
+                <label for="nascimento" class="text-white text-6xl">Nascimento</label>
+                <input id="nascimento" type="date"
+                    class="rounded-lg bg-slate-500 w-80 h-20 text-3xl flex justify-center outline-slate-50 text-white">
+            </div>
+            <div>
+                <label for="falecimento" class="text-white text-6xl">Falecimento</label>
+                <input id="falecimento" type="date"
+                    class="rounded-lg bg-slate-500 w-80 h-20 text-3xl flex justify-center outline-slate-50 text-white">
+            </div>
+            <div class="flex flex-col gap-10">
+                <p class="text-white text-6xl">Nacionalidade</p>
+                <div class="flex flex-col gap-4">
+                    <select id="nacionalidadeSelect1" class="w-full text-4xl bg-slate-500 rounded-xl text-white  outline-slate-50">
+                        <option value="0"></option>
+                    </select>
+                    <select id="nacionalidadeSelect2" class="w-full text-4xl bg-slate-500 rounded-xl text-white  outline-slate-50">
+                        <option value="0"></option>
+                    </select>   
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col items-center">
+            <div class="scroll overflow-y-auto mr-12 h-fit max-h-60 bg-gray-400 rounded-xl w-2/3">
+                <div class="flex flex-col gap-5 h-full p-4 mb-20" id="generosContainer"></div>
+            </div>
+            <button class="uppercase flex items-center bg-sky-700 py-2 px-4 rounded-2xl text-2xl">Adicionar Filme
+                <img src="../../img/icons/addBlack.png" id="openPannelAddFilmeButton">
+            </button>
+        </div>
+        <img id="foto" class="h-96 cursor-pointer" style="aspect-ratio: 2/3;">
+    </div>
+</body>
+
+<div class="flex w-full justify-end gap-4 fixed bottom-10 right-20">
+    <a href="./index.html" class="rounded-full bg-indigo-200 p-4 px-10 text-2xl text-black hover:text-white">Cancelar</a>
+    <button id="botaoConfirmar" class="rounded-full bg-indigo-400 p-2 px-16 text-2xl text-black hover:text-white"></button>
+</div>
+
+<div class="hidden justify-center items-center h-full w-full absolute top-0 left-0 bg-black/75" id="campoDigitacaoImagem">
+    <input id="campoDigitacaoImagemInput" type="text" placeholder="Link da imagem" class="w-full h-20 m-20 p-4 text-3xl rounded-lg outline-none">
+</div>
+
+<div class="hidden flex flex-col gap-10 justify-center items-center h-full w-full absolute top-0 left-0 bg-black/75" id="campoAddFilme">
+    <select id="addFilmeSelect" class="text-4xl text-center rounded-3xl">
+        <option value="0"></option>
+    </select>
+    <div>
+        <button class="text-white bg-red-500 text-2xl px-5 py-4 rounded-2xl hover:bg-red-700 duration-500" id="closePannelAddFilmeButton">Cancelar</button>
+        <button class="text-white bg-sky-500 text-2xl px-5 py-4 rounded-2xl hover:bg-sky-700 duration-500" id="addFilmeButton">Adicionar</button>
+    </div>
+</div>
+
+
+</html>
+
+
+<style>
+    .closeButton {
+        top: -10px;
+        left: -10px;
+    }
+
+    .scroll::-webkit-scrollbar {
+        background-color: #545454;
+        width: 24px;
+        border-radius: 16px;
+    }
+
+    .scroll::-webkit-scrollbar-thumb {
+        background-color: #fff;
+        border-radius: 32px;
+        border: 4px solid #545454;
+    }
+</style>

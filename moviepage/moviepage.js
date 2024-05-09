@@ -1,4 +1,4 @@
-import { getFilme, validarData, getDiretoresFilme, getAtoresFilme } from "../funcoes.js";
+import { getFilme, validarData, getDiretoresFilme, getAtoresFilme, getFavoritosUsuario, idUsuario, postFavorito, deleteFavorito } from "../funcoes.js";
 
 document.getElementById('returnIcon').addEventListener('click',()=>{
     window.location.href='../home/index.html'
@@ -8,6 +8,7 @@ const idFilme = new URLSearchParams(window.location.search).get('idFilme');
 if(!idFilme){window.location.href='../home/index.html'}
 
 const infoFilme = await getFilme(idFilme)
+document.title = infoFilme.nome
 const titulo = document.getElementById('titulo')
 const dataLancamento = document.getElementById('dataLancamento')
 const dataRelancamento = document.getElementById('dataRelancamento')
@@ -42,6 +43,7 @@ document.getElementById('castIcon').addEventListener('click',()=>{
     document.getElementById('castFieldF').classList.remove('w-0')
 })
 
+let contElementos = 0
 const listaDiretoresFilme = await getDiretoresFilme(idFilme)
 if(listaDiretoresFilme){
     const castField = document.getElementById('castField')
@@ -52,6 +54,7 @@ if(listaDiretoresFilme){
     const containerDiretores = document.createElement('div')
 
     listaDiretoresFilme.forEach(diretor => {
+        console.log(diretor);
         const diretorCampo = document.createElement('div')
         diretorCampo.classList.add('flex','p-5','gap-3','cursor-pointer', 'h-60')
 
@@ -60,27 +63,24 @@ if(listaDiretoresFilme){
         fotoDiretor.src = diretor.foto
 
         const rightSide = document.createElement('div')
-        rightSide.classList.add('flex','flex-col','gap-3','h-full')
+        rightSide.classList.add('h-full','flex','items-center')
 
         const nomeDiretor = document.createElement('h3')
         nomeDiretor.classList.add('text-white','text-2xl')
         nomeDiretor.textContent=diretor.nome
 
-        const biografiaDiretor = document.createElement('p')
-        biografiaDiretor.classList.add('text-white','overflow-hidden')
-        biografiaDiretor.textContent=diretor.biografia
-
-
-        rightSide.replaceChildren(nomeDiretor,biografiaDiretor)
+        rightSide.replaceChildren(nomeDiretor)
         diretorCampo.replaceChildren(fotoDiretor,rightSide)
         containerDiretores.appendChild(diretorCampo)
 
         diretorCampo.addEventListener('click',()=>{
-            window.location.href='../actorpage/index.html?idDiretor='+diretor.id
+            window.location.href='../directorPage/index.html?idDiretor='+diretor.id
         })
     });
     castField.appendChild(direcaoTEXT)
     castField.appendChild(containerDiretores)
+} else {
+    contElementos++
 }
 
 const listaAtoresFilme = await getAtoresFilme(idFilme)
@@ -101,7 +101,7 @@ if(listaAtoresFilme){
         fotoAtor.src = ator.foto
 
         const rightSide = document.createElement('div')
-        rightSide.classList.add('flex','flex-col','gap-3','h-full')
+        rightSide.classList.add('h-full','flex','items-center')
 
         const nomeAtor = document.createElement('h3')
         nomeAtor.classList.add('text-white','text-2xl')
@@ -111,9 +111,18 @@ if(listaAtoresFilme){
         atorCampo.replaceChildren(fotoAtor, rightSide)
         containerAtores.appendChild(atorCampo)
 
+        atorCampo.addEventListener('click',()=>{
+            window.location.href='../actorPage/index.html?idAtor='+ator.id
+        })
     });
     castField.appendChild(atuacaoTEXT)
     castField.appendChild(containerAtores)
+} else {
+    contElementos++
+}
+
+if(contElementos == 2){
+    document.getElementById('castIcon').classList.add('hidden')
 }
 
 
@@ -132,4 +141,45 @@ document.getElementById('castField').addEventListener('click',(event)=>{
     event.stopPropagation();
 })
 
-console.log(infoFilme);
+const listaFavoritos = await getFavoritosUsuario(idUsuario)
+let favoritado = false
+
+if(listaFavoritos){
+    listaFavoritos.forEach(favorito => {
+        if(favorito.id_filme == idFilme){
+            favoritado = favorito
+        } 
+    });
+}
+const starIcon = document.getElementById('starIcon')
+if(!favoritado){
+    starIcon.src = '../img/icons/starUncheck.png'
+    starIcon.addEventListener('click',async ()=>{
+        const info = {
+            idUsuario: parseInt(idUsuario),
+            idFilme: parseInt(idFilme)
+        }
+        console.log(info);
+        const addFavoritoResult = await postFavorito(info)
+        if(addFavoritoResult){
+            window.location.reload()
+        } else {
+            alert("Erro ao favoritar!!")
+        }
+    })
+
+} else {
+    starIcon.src = '../img/icons/starCheck.png'
+    starIcon.addEventListener('click',async ()=>{
+        const info = {
+            idUsuario,
+            idFilme
+        }
+        const removeFavoritoResult = await deleteFavorito(info)
+        if(removeFavoritoResult){
+            window.location.reload()
+        } else {
+            alert("Erro ao desfavoritar!!")
+        }
+    })
+}

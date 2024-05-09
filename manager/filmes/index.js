@@ -1,13 +1,17 @@
 
-import { getFilmesSort, deleteFilme, validarData, getUsuario, deleteFavoritosFilme} from "../funcoes.js";
-
+import { getFilmesSort, deleteFilme, validarData, getUsuario, deleteFavoritosFilme} from "../../funcoes.js";
+// localStorage.removeItem('idusuario')
 const idUsuario = localStorage.getItem('idusuario');
-const admin = (await getUsuario(idUsuario)).admin
-if(!idUsuario || admin==0){window.location.href='../login/index.html'}
+let admin = 0
+if(idUsuario){
+    admin = (await getUsuario(idUsuario)).admin
+}
+if(!idUsuario || admin==0){window.location.href='../../login/index.html'}
+
 let ordem = -1;
 let listaFilmes 
 
-async function alterarOrdem(){
+function alterarOrdem(){
     let sort
     if(ordem>5){ordem = 0}
     if(ordem==0){sort = 'id'}
@@ -18,15 +22,16 @@ async function alterarOrdem(){
     if(ordem==5){sort = 'duracao'}
     return sort
 }
-const filmes = document.getElementById('filmes')
+const containers = document.getElementById('filmes')
 
 
 iniciarTela()
 async function iniciarTela(){
+    
     ordem++
-    listaFilmes = (await getFilmesSort(await alterarOrdem()))
-    excluirListaFilmes()
-    criarFilmes()
+    listaFilmes = (await getFilmesSort(alterarOrdem()))
+    excluirListaContainers()
+    criarContainers()
     if(ordem==0){document.getElementById('sortField').textContent="ID"}
     if(ordem==1){document.getElementById('sortField').textContent="Ordem Alfabética"}
     if(ordem==2){document.getElementById('sortField').textContent="Mais recente"}
@@ -38,14 +43,14 @@ async function iniciarTela(){
 
 
 document.getElementById('botaoAdicionar').addEventListener('click',()=>{
-    window.location.href='./telaFilme.html'
+    window.location.href='./telaModificar.html'
 })
 
 document.getElementById('botaoDeletar').addEventListener('click',()=>{
-        const divsFilme = document.querySelectorAll('.filme');
+        const divs = document.querySelectorAll('.filme');
         const lista = []; 
     
-    divsFilme.forEach(function(div) {
+    divs.forEach(function(div) {
         const checkbox = div.querySelector('input[type="checkbox"]');
         if (checkbox.checked) {
             const id = div.querySelector('.id').textContent;
@@ -53,13 +58,13 @@ document.getElementById('botaoDeletar').addEventListener('click',()=>{
         }
     });
 
-    lista.forEach(filmeASerDeletado => {
-        deleteFavoritosFilme(filmeASerDeletado)
-        deleteFilme(filmeASerDeletado)
-    });
+    if(lista.length>0){
+        lista.forEach(async aSerDeletado=> {
+            await deleteFilme(aSerDeletado)
+        });
 
-    if(lista.length>0)
-    window.location.reload()
+        window.location.reload()
+    }
 })
 
 document.getElementById('botaoSort').addEventListener('click',async()=>{
@@ -68,12 +73,14 @@ document.getElementById('botaoSort').addEventListener('click',async()=>{
 })
 document.getElementById('botaoSort').addEventListener('mouseenter',()=>{
     document.getElementById('sortField').classList.remove('opacity-0')
+    document.getElementById('sortField').classList.remove('invisible')
 })
 document.getElementById('botaoSort').addEventListener('mouseleave',()=>{
     document.getElementById('sortField').classList.add('opacity-0')
+    document.getElementById('sortField').classList.add('invisible')
 })
 
-function criarFilme(info){
+function criarContainer(info){
     
     const filme = document.createElement('div')
     filme.classList.add('filme', 'flex', 'bg-neutral-100', 'ml-8', 'rounded-lg', 'w-5/6', 'h-20'); 
@@ -119,22 +126,23 @@ barraCinza.forEach(barra => {
 });
     nullSpace.replaceChildren(checkbox)
     filme.replaceChildren(nullSpace,barraCinza[0],id,barraCinza[1],titulo,barraCinza[2],lancamento,barraCinza[3],duracao)
-    filmes.appendChild(filme)
-
-    titulo.addEventListener('click', ()=>{   window.location.href='./telaFilme.html?id='+info.id
+    containers.appendChild(filme)
+    titulo.addEventListener('click', ()=>{window.location.href='./telaModificar.html?idFilme='+info.id
 })
 }
-function criarFilmes(){
-    listaFilmes.forEach(filme => {
-        criarFilme(filme)
-    });    
+
+function criarContainers(){
+    if(listaFilmes){
+        listaFilmes.forEach(filme => {
+            criarContainer(filme)
+        });    
+    }
 }
-function excluirListaFilmes(){
-    while (filmes.firstChild) {
-        filmes.removeChild(filmes.firstChild);
+function excluirListaContainers(){
+    while (containers.firstChild) {
+        containers.removeChild(containers.firstChild);
     }
 }
 
 
-document.getElementById('logo').addEventListener('click',()=>{window.location.href='../home/index.html'}
-)
+document.getElementById('logo').addEventListener('click',()=>{window.location.href='../../home/index.html'})

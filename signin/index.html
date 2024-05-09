@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Grandstander:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../cadastro.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="./signin.js" type="module"></script>
+
+<title>Login</title>
+</head>
+<div class="absolute z-0 h-screen w-screen bg-sky-800 opacity-50"></div>
+<body class="bg-cover h-full w-full absolute z-10 flex flex-col justify-center items-center">
+    <div class="h-5/6 w-3/5 z-10 opacidadeFundo border-solid border-8 border-black grid py-16 px-40 gap-4 rounded-3xl">
+        <div>
+            <p class="text-white text-4xl">Como devemos chamá-lo?</p>
+            <input id="nome" type="text"    class="w-full text-3xl border-y-white-500 bg-transparent outline-none text-gray-300">
+        </div>
+       <div>
+            <p class="text-white text-4xl">E-mail</p>
+            <input id="email" type="email"    class="w-full text-3xl border-y-white-500 bg-transparent outline-none text-gray-300">
+        </div>
+        <div>
+            <p class="text-white text-4xl">Senha</p>
+            <input id="senha" type="password" class="w-full text-3xl border-y-white-500 bg-transparent outline-none text-gray-300">
+        </div>
+        <div class="flex justify-between w-full items-center h-28">
+            <div class="flex flex-col       h-full w-2/5">
+                <p class="text-white text-3xl">Data de nascimento</p>
+                <input id="nascimento" type="date"class="w-full text-3xl border-y-white-500 bg-transparent outline-none text-gray-300">
+            </div>
+            <div class=" flex flex-col   items-center h-full w-1/5">
+                <p class="text-white text-3xl">ADM</p>
+                <input id="adm" type="checkbox" class="w-full h-1/2">
+            </div>
+            <div class="flex flex-col   h-full w-2/5">
+                <p class="text-white text-3xl self-end">Gênero</p>
+                <select id="genero" class="w-full text-3xl border-y-white-500 bg-transparent outline-none text-gray-300">Gênero</select>
+            </div>
+        </div>
+
+        <div class="gap-2 flex w-full flex-col justify-end items-center text-white">
+            <a href="../login/index.html" class="text-3xl cursor-pointer hover:underline hover:text-4xl">Já possuo uma conta</a>
+        </div>
+        <button id="button" class="uppercase bg-cyan-600 text-5xl px-16 py-8 rounded-full z-10 text-white hover:text-sky-300">Criar conta</button>
+    </div>
+</body>
+</html>

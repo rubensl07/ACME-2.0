@@ -1,7 +1,8 @@
-const idUsuario = localStorage.getItem('idusuario')
-if(!idUsuario) {window.location.href='../login/index.html'}
 
-import {getFavoritosUsuario, getFilmes, getUsuario,deleteFavorito} from "../funcoes.js"
+
+import {getFavoritosUsuario, getFilmes, getUsuario,deleteFavorito, idUsuario, getFilme} from "../funcoes.js"
+
+if(!idUsuario) {window.location.href='../login/index.html'}
 
 const infoUsuario = (await getUsuario(idUsuario))
 
@@ -11,31 +12,23 @@ if(infoUsuario.admin==1){
     editarFilmesButton.classList.remove('invisible')
 }
 
-const listaFavoritos = await getFavoritosUsuario(idUsuario)
-const listaFilmes = await getFilmes()
-
-function listarFilmesFavoritosUsuario(){
-    const listaFilmesFavoritosUsuario = []
-    listaFavoritos.forEach(favorito =>{
-        listaFilmes.forEach(filme => {
-            if(filme.id == favorito.filme_id){
-                listaFilmesFavoritosUsuario.push(filme)
-            }
-    })
-    });
-    return listaFilmesFavoritosUsuario
-}
-if(listaFavoritos){
-    const favoritosUsuario = listarFilmesFavoritosUsuario()
-        favoritosUsuario.forEach(favorito => {
-            criarFavoritos(favorito)
-    });
+const favoritosUsuario = await getFavoritosUsuario(idUsuario)
+if(favoritosUsuario){
+    if(favoritosUsuario.length>0){
+        favoritosUsuario.forEach(async favorito => {
+            const infoFilme = await getFilme(favorito.id_filme)
+            criarFavoritos(infoFilme)
+        });
+    } else {
+        criarCampoSemFavoritos()
+    }
 } else {
     criarCampoSemFavoritos()
 }
 
 
 function criarFavoritos(info){
+    console.log(info);
     container.classList.add('grid','grid-cols-3','px-36','gap-10')
     const card = document.createElement('div')
     card.classList.add('z-0','flex','items-center', 'h-52','p-3','rounded-2xl','cursor-pointer','gap-4','relative')
@@ -61,16 +54,18 @@ function criarFavoritos(info){
     card.replaceChildren(closeButton,leftSide,rightSide)
     container.appendChild(card)
     card.addEventListener('click',()=>{
-        window.location.href='../home/home.html?id='+info.id
+        window.location.href='../moviepage/index.html?idFilme='+info.id
     })
-    closeButton.addEventListener('click',()=>{
+    closeButton.addEventListener('click',(event)=>{
         const informacoes = {
             idUsuario,
             idFilme: info.id
         }
         deleteFavorito(informacoes)
         window.location.reload()
+    event.stopPropagation()
     })
+    
 }
 
 function criarCampoSemFavoritos(){
@@ -86,7 +81,9 @@ function criarCampoSemFavoritos(){
     const button = document.createElement('a')
     button.textContent="Navegar"
     button.classList.add('bg-gray-500', 'px-6','py-4', 'rounded-2xl', 'text-xl','hover:text-white','cursor-pointer')
-    button.setAttribute('href','../home/home.html')
+    button.setAttribute('href','../home/index.html')
     notFound.replaceChildren(img,text,button)
     container.replaceChildren(notFound)
 }
+
+

@@ -1,11 +1,10 @@
-import { getFilme,postFilme, editFilme, getGeneros,  getGenerosFilme,deleteGeneroFilme, postGeneroFilme} from "../funcoes.js";
-// const idUsuario = localStorage.getItem('idusuario');
-// const admin = (await getUsuario(idUsuario)).admin
-// if(!idUsuario || admin==0){window.location.href='../login/index.html'}
-const id = new URLSearchParams(window.location.search).get('id');
+import { getFilme,postFilme, editFilme, getGeneros,  getGenerosFilme, postGeneroFilme, removeGeneroFilme, validarDataInferior} from "../../funcoes.js";
+const idFilme = new URLSearchParams(window.location.search).get('idFilme');
+
+const listaGeneros = await getGeneros()
+
 
 let imagemAberta = 0
-
 //Pegar elementos do HTML
 const inputDigitado = document.getElementById('campoDigitacaoImagemInput')
 const campoDigitacaoImagem = document.getElementById('campoDigitacaoImagem')
@@ -23,10 +22,13 @@ const classificacaoCampo = document.getElementById('classificacao')
 
 fotoCapaCampo.addEventListener('click',()=>{abrirCampoTrocarImagem(1)}) 
 fotoFundoCampo.addEventListener('click',()=>{abrirCampoTrocarImagem(2)})
-document.getElementById('openPannelAddGeneroButton').addEventListener('click',abrirCampoAdicionarGenero) 
+document.getElementById('openPannelAddGeneroButton').addEventListener('click',()=>{
+    campoAddGeneros.classList.remove('hidden')
+}) 
+document.getElementById('closePannelAddGeneroButton').addEventListener('click',()=>{
+    campoAddGeneros.classList.add('hidden')
+})
 
-
-const listaGeneros = await getGeneros()
 listaGeneros.forEach(genero => {
     const option = document.createElement('option')
     option.value = genero.id
@@ -34,13 +36,25 @@ listaGeneros.forEach(genero => {
     addGeneroSelect.appendChild(option)
 });
 
-function preencherGeneros(generos){
-    generos.forEach(genero => {
-        criarGenero(genero)
-    });
+const arrayGenerosOriginal = []
+if(idFilme){
+    const listaGenerosFilme = await getGenerosFilme(idFilme)
+    if(listaGenerosFilme){
+    listaGenerosFilme.forEach(genero =>{
+        arrayGenerosOriginal.push(genero.id)
+        criarGenero(genero.id)
+    })
 }
+}
+let arrayGenerosNova = arrayGenerosOriginal.slice()
 
-function criarGenero(info){
+function criarGenero(idGenero){
+    let info
+    listaGeneros.forEach(genero => {
+        if(genero.id == idGenero){
+            info = genero
+        }
+    });
     const generosContainer = document.getElementById('generosContainer')
     
     const genero = document.createElement('div')
@@ -51,51 +65,43 @@ function criarGenero(info){
     
     const closeButton = document.createElement('img')
     closeButton.classList.add('absolute','closeButton','h-8','w-8','cursor-pointer')
-    closeButton.src = "../img/icons/xicon.png"
+    closeButton.src = "../../img/icons/xicon.png"
 
 
     genero.replaceChildren(nomeGenero,closeButton)
     generosContainer.appendChild(genero)
-
     closeButton.addEventListener('click',async ()=>{
-        excluirGeneros.push(info)
+        arrayGenerosNova = arrayGenerosNova.filter(array => array !== info.id)
+        genero.remove();
     })
-    
-
-}
-function excluirCardsGeneros(){
-    generosContainer.innerHTML=''
 }
 
 
-function abrirCampoAdicionarGenero(){
-    campoAddGeneros.style.display='flex'
-}
 function abrirCampoTrocarImagem(imagem){
     campoDigitacaoImagem.style.display='flex'
     inputDigitado.focus()
     imagemAberta = imagem
 }
 
-document.getElementById('closePannelAddGeneroButton').addEventListener('click',()=>{
-    campoAddGeneros.style.display='none'
-})
-const novosGeneros = []
-const excluirGeneros = []
+
+
+
 document.getElementById('addGeneroButton').addEventListener('click',async ()=>{
-   
     if(addGeneroSelect.value>0){
-        const dados = {
-            idFilme: id,
-            idGenero: addGeneroSelect.value
+        let generoAdicionado = parseInt(addGeneroSelect.value)
+        let disponivel = true
+        arrayGenerosNova.forEach(generoId =>{
+            if(generoAdicionado == generoId){
+                disponivel = false
+            }
+        })
+        if(disponivel){
+            arrayGenerosNova.push(generoAdicionado)
+            criarGenero(generoAdicionado)
         }
-        novosGeneros.push(dados)
-        const tempInfo= {
-            nome: addGeneroSelect.options[addGeneroSelect.value].textContent
-        }
-        criarGenero(tempInfo)
     }
-    campoAddGeneros.style.display='none'
+    addGeneroSelect.value = 0
+    campoAddGeneros.classList.add('hidden')
 })
 inputDigitado.addEventListener('keypress',(event)=>{
     if(event.key==="Enter"){
@@ -130,8 +136,9 @@ function trocarImagem(){
       }
 }
 
-if(id){
-    const infoFilme = (await getFilme(id))
+if(idFilme){
+    document.getElementById('botaoConfirmar').textContent='Salvar Alterações'
+    const infoFilme = (await getFilme(idFilme))
     tituloCampo.value = infoFilme.nome
     sinopseCampo.textContent= infoFilme.sinopse
     dataLancamentoCampo.value = infoFilme.data_lancamento.substr(0,10)
@@ -140,31 +147,14 @@ if(id){
     }
     duracaoCampo.value = infoFilme.duracao.slice(11, 16); 
     fotoCapaCampo.src = infoFilme.foto_capa
-    if(infoFilme.foto_fundo){
-        fotoFundoCampo.src = infoFilme.foto_fundo
-    }
+    fotoFundoCampo.src = infoFilme.foto_fundo
     corCampo.value = infoFilme.cor
     classificacaoCampo.options[infoFilme.classificacaoIndicativa.id-1].selected = true
-    if(infoFilme.generos.length>0){
-        let oldGeneros = []
-        const listaGenerosFilme = await getGenerosFilme(id)
-        listaGenerosFilme.forEach(element =>{
-            oldGeneros.push(element.id)
-        })
-        console.log(oldGeneros)
-        preencherGeneros(listaGenerosFilme)
-    }
-
-    document.getElementById('botaoConfirmar').textContent='Salvar Alterações'
-    document.getElementById('botaoConfirmar').addEventListener('click',()=>{confirmar(false)})
 } else {
-    document.getElementById('botaoConfirmar').textContent='Criar novo'
-    document.getElementById('botaoConfirmar').addEventListener('click',()=>{confirmar(true)})
+    document.getElementById('botaoConfirmar').textContent='Criar'
 }
 
-
-
-function confirmar(novo){
+document.getElementById('botaoConfirmar').addEventListener('click',async ()=>{
     const titulo            = tituloCampo.value
     const descricao         = sinopseCampo.value
     const dataLancamento    = dataLancamentoCampo.value
@@ -172,9 +162,9 @@ function confirmar(novo){
     const duracao           = duracaoCampo.value
     const fotoCapa          = fotoCapaCampo.src
     const fotoFundo         = fotoFundoCampo.src
-    const corPredominante = corCampo.value
-    const classificacao = classificacaoCampo.options[classificacaoCampo.selectedIndex].value
-    if(titulo == ''||descricao==''||dataLancamento==''||duracao==''||fotoCapa==''){
+    const corPredominante   = corCampo.value
+    const classificacao     = classificacaoCampo.options[classificacaoCampo.selectedIndex].value
+    if(titulo == ''||descricao==''||dataLancamento==''||duracao==''||fotoCapa==''||fotoFundo==''){
         let stringRestantes = '' 
         if(titulo==''){
             stringRestantes = stringRestantes + '\n - Título'
@@ -191,14 +181,17 @@ function confirmar(novo){
         if(fotoCapa==''){
             stringRestantes = stringRestantes + '\n - Foto de capa'
         }
+        if(fotoFundo==''){
+            stringRestantes = stringRestantes + '\n - Foto de fundo'
+        }
         alert("Preencha todos os campos corretamente!\nCampos restantes: "+stringRestantes)
     } else 
-        if(!validarDataRelancamento(dataLancamento,dataRelancamento)) {
+        if(!validarDataInferior(dataLancamento,dataRelancamento)) {
             alert("Erro: A data de relançamento está anterior a data de lançamento.")
          } 
     else 
     {
-        const novasInfos = {
+        const infoFilme = {
             nome: titulo,
             sinopse: descricao,
             data_lancamento: dataLancamento,
@@ -209,34 +202,40 @@ function confirmar(novo){
             cor: corPredominante,
             classificacao
         }
-        if(novo){
-            postFilme(novasInfos)
+        let filmeModificado = false
+        if(idFilme){
+            filmeModificado = await editFilme(idFilme, infoFilme)
         } else {
-            editFilme(id, novasInfos)
+            filmeModificado = await postFilme(infoFilme)
         }
-        if(novosGeneros>0){
-            novosGeneros.forEach(element => {
-                postGeneroFilme(element)
-            });
-        }
-        if(excluirGeneros>0){
-            excluirGeneros.forEach(element => {
-                deleteGeneroFilme(element)
-            });
-        }
-        window.location.href='./manager.html'
-    }
-}
+        if(filmeModificado.success){
+            console.log(filmeModificado.data.id);
+            const idAlterado = filmeModificado.data.id
+        
+        let generosASeremRemovidos = arrayGenerosOriginal.filter(numero => !arrayGenerosNova.includes(numero));
+        let generosASeremAdicionados = arrayGenerosNova.filter(numero => !arrayGenerosOriginal.includes(numero));
 
+        generosASeremRemovidos.forEach(async idGenero =>{
+            let info = {
+                idFilme: idAlterado,
+                idGenero
+            }
+            const removerGeneroFilmeResult = await removeGeneroFilme(info)
+            console.log(removerGeneroFilmeResult);
+        });
+        generosASeremAdicionados.forEach(async idGenero =>{
+            let info = {
+                idFilme: idAlterado,
+                idGenero
+            }
+            const adicionarGeneroFilmeResult = await postGeneroFilme(info)
+            console.log(adicionarGeneroFilmeResult);
+        });
+        window.location.href='./index.html'
 
-function validarDataRelancamento(dataLancamento,dataRelancamento){
-    dataLancamento = dataLancamento.split('-')
-    dataLancamento = parseInt(dataLancamento[0]+dataLancamento[1]+dataLancamento[2])
-    dataRelancamento = dataRelancamento.split('-')
-    dataRelancamento = parseInt(dataRelancamento[0]+dataRelancamento[1]+dataRelancamento[2])
-    if(dataLancamento>dataRelancamento){
-        return false
     } else {
-        return true
+        alert('Ocorreu um erro')
     }
-}
+    }
+})
+

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="./telaFilme.js" type="module" defer></script>
+    <script src="./telaModificar.js" type="module" defer></script>
     <title>Filme</title>
 </head>
 
@@ -14,7 +14,6 @@
         <div class="flex flex-col gap-4">
             <input type="text" id="titulo" placeholder="Título" class="h-30 rounded-lg text-6xl p-5 bg-slate-500 outline-slate-50 text-white">
             <textarea id="sinopse" placeholder="Sinopse" class="rounded-lg p-4 text-2xl bg-slate-500 resize-none outline-slate-50 text-white scroll h-60"></textarea>
-
         </div>
         <div class="flex flex-col w-3/5 w-full gap-4">
             <div class="flex items-center w-full justify-between"> 
@@ -32,7 +31,7 @@
                     <label for="duracao" class="text-white text-5xl">Duração</label> 
                     <input name="duracao" placeholder="hh:mm" maxlength="5" id="duracao" type="text" class="rounded-lg bg-slate-500 w-48 h-20 text-white outline-slate-50 text-center text-4xl"> 
                 </div>
-                <select name="Classificação" id="classificacao" class="h-14 w-14 text-3xl bg-slate-500 rounded-xl text-white  outline-slate-50">
+                <select name="classificacao" id="classificacao" class="h-14 w-14 text-3xl bg-slate-500 rounded-xl text-white  outline-slate-50">
                     <option value="1">L</option>
                     <option value="2">10</option>
                     <option value="3">12</option>
@@ -56,13 +55,13 @@
                 <div class="flex flex-col gap-5 h-full p-4 mb-20" id="generosContainer"></div>
             </div>
             <button class="uppercase flex items-center bg-sky-700 py-2 px-4 rounded-2xl text-2xl">Adicionar gênero
-                <img src="../img/icons/addBlack.png" id="openPannelAddGeneroButton">
+                <img src="../../img/icons/addBlack.png" id="openPannelAddGeneroButton">
             </button>
         </div>
 
     </div>
     <div class="flex w-full justify-end gap-4 fixed bottom-2 right-20">
-        <a href="./manager.html" class="rounded-full bg-indigo-200 p-4 px-10 text-2xl text-black hover:text-white">Cancelar</a>
+        <a href="./index.html" class="rounded-full bg-indigo-200 p-4 px-10 text-2xl text-black hover:text-white">Cancelar</a>
         <button id="botaoConfirmar" class="rounded-full bg-indigo-400 p-2 px-16 text-2xl text-black hover:text-white"></button>
     </div>
 
@@ -70,7 +69,7 @@
         <input id="campoDigitacaoImagemInput" type="text" placeholder="Link da imagem" class="w-full h-20 m-20 p-4 text-3xl rounded-lg outline-none">
     </div>
     
-    <div class="hidden flex-col gap-10 justify-center items-center h-full w-full absolute top-0 left-0 bg-black/75" id="campoAddGenero">
+    <div class="hidden flex flex-col gap-10 justify-center items-center h-full w-full absolute top-0 left-0 bg-black/75" id="campoAddGenero">
         <select name="Gêneros" id="addGeneroSelect" class="text-4xl text-center rounded-3xl">
             <option value="0">Nenhum</option>
         </select>

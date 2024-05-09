@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="./director.js" type="module"></script>
+    <title>Director Page</title>
+</head>
+<body class="bg-gray-700">
+    <header class="w-screen flex items-center justify-between h-28 px-5">
+        <img src="../img/logo.png" class="h-full cursor-pointer" id="logo">
+    </header>
+    <div class="bg-black w-full h-80 flex items-center px-10">
+        <div class="h-5/6 flex gap-4">
+            <img id="fotoDiretor" class="h-full rounded-2xl">
+            <div class="flex flex-col justify-between">
+                <div>
+                    <h1 id="nome" class="text-7xl text-white"></h1>
+                    <p id="nacionalidade" class="text-2xl text-white"></p>
+                    <p id="sexo" class="text-2xl text-white"></p>
+                </div>
+                <p id="nascimento" class="text-2xl text-white"></p>
+            </div>
+        </div>
+    </div>
+    <div id="filmesDirigidosField"></div>
+</body>
+</html>

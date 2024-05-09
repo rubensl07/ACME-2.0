@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="./telaModificar.js" type="module" defer></script>
+    <title>Genero</title>
+</head>
+
+<body class="bg-gray-700 p-20 flex flex-col gap-10 items-center justify-center h-screen">
+    <input type="text" id="nome" placeholder="Nome" class="h-40 w-full text-center rounded-lg text-8xl p-5 bg-slate-500 outline-slate-50 text-white">
+</body>
+
+<div class="flex w-full justify-end gap-4 fixed bottom-10 right-20">
+    <a href="./index.html" class="rounded-full bg-indigo-200 p-4 px-10 text-2xl text-black hover:text-white">Cancelar</a>
+    <button id="botaoConfirmar" class="rounded-full bg-indigo-400 p-2 px-16 text-2xl text-black hover:text-white"></button>
+</div>
+</html>
+
+
+<style>
+    .scroll::-webkit-scrollbar {
+        background-color: #545454;
+        width: 24px;
+        border-radius: 16px;
+    }
+
+    .scroll::-webkit-scrollbar-thumb {
+        background-color: #fff;
+        border-radius: 32px;
+        border: 4px solid #545454;
+    }
+</style>
