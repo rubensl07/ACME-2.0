@@ -1,8 +1,8 @@
 //Filmes
 
-//const link = 'http://localhost:8080'
+const link = 'http://localhost:8080'
 // const link = 'https://acme-filmes-back.onrender.com'
-const link = 'https://teste20241002-esh7gjgfc2hygtf0.brazilsouth-01.azurewebsites.net'
+// const link = 'https://teste20241002-esh7gjgfc2hygtf0.brazilsouth-01.azurewebsites.net'
 
 export async function getFilmes(){
     const url = `${link}/acmefilmes/filmes`
